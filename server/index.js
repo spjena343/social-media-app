@@ -7,6 +7,7 @@ import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
+import authRoutes from "./routes/auth.js"
 import { fileURLToPath } from "url";
 import {register} from "./controller/auth.js"
 
@@ -37,9 +38,8 @@ const upload = multer({storage});
 // Routes with files
 app.post("/auth/register",upload.single("picture"),register);
 
-
-
-
+// Routes 
+app.use('/auth',authRoutes)
 
 // Mongoose setup
 const PORT = process.env.PORT || 9000
@@ -51,5 +51,5 @@ mongoose.connect(process.env.MONGO_URL, {
         console.log(`port number is running on  ${PORT}`)
     })   
 }).catch((error)=> {
-    console.log(error)
+    console.log(error) 
 })
